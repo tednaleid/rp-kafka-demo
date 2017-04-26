@@ -18,6 +18,7 @@ It will start listening a topic called `the-topic` in a polling loop and will pr
 You can send things to that topic with a tool like `kafkacat` (`brew install kafkacat` if you don't have it) using
 something like:
 
+    for I in $(seq 100); do
     VALUE=$RANDOM
     echo "sending $VALUE"
     echo $VALUE | kafkacat -P -b localhost:9092 -t the-topic
@@ -26,19 +27,28 @@ something like:
     
 Do that and you should see output from the ratpack like:
 
-    Polling!
-    Polling!
-    offset: 169, key: null value: 31850
-    Polling!
-    Polling!
-    offset: 170, key: null value: 6335
-    Polling!
-    Polling!
-    offset: 171, key: null value: 23058
-    Polling!
-    Polling!
-    offset: 172, key: null value: 30356
-    Polling!
-    Polling!
-    offset: 173, key: null value: 1995
-    Polling!
+    Polling on ratpack-blocking-3-1
+    offset: 412, key: null value: 20910 on ratpack-compute-1-2
+    Polling on ratpack-blocking-3-1
+    Polling on ratpack-blocking-3-1
+    offset: 413, key: null value: 13779 on ratpack-compute-1-2
+    Polling on ratpack-blocking-3-1
+    Polling on ratpack-blocking-3-1
+    offset: 414, key: null value: 22697 on ratpack-compute-1-2
+    Polling on ratpack-blocking-3-1
+    
+    
+if you curl the endpoint, you'll see that the same event loop thread is free for it to use (this uses [`ganda`](https://github.com/tednaleid/ganda)):
+
+    $ yes | awk '{print "http://localhost:5050/hello"}' | ganda
+
+    Response: 200 http://localhost:5050/hello
+    Hello from ratpack-compute-1-2
+    Response: 200 http://localhost:5050/hello
+    Hello from ratpack-compute-1-6
+    Response: 200 http://localhost:5050/hello
+    Hello from ratpack-compute-1-6
+    Response: 200 http://localhost:5050/hello
+    Hello from ratpack-compute-1-1
+    Response: 200 http://localhost:5050/hello
+    Hello from ratpack-compute-1-1

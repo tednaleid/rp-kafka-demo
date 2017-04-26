@@ -70,13 +70,13 @@ class KafkaService implements Service, Action<Execution> {
     }
 
     ConsumerRecords<String, String> pollKafka() {
-        println "Polling!"
+        println "Polling on ${Thread.currentThread().name}"
         consumer.poll(1000)
     }
 
     Promise process(ConsumerRecords<String, String> records) {
         for (ConsumerRecord<String, String> record : records) {
-            println "offset: ${record.offset()}, key: ${record.key()} value: ${record.value()}"
+            println "offset: ${record.offset()}, key: ${record.key()} value: ${record.value()} on ${Thread.currentThread().name}"
         }
 
         return Promise.value("instead of printing, call redis or whatever and then return a promise from that when it is done")

@@ -16,6 +16,6 @@ class HelloEndpoint extends GroovyHandler {
     }
 
     protected void handleJson(GroovyContext context) {
-        context.render("Hello from KafkaDemo")
+        context.render("Hello from ${Thread.currentThread().name}")
     }
 }
