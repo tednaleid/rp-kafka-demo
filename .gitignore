@@ -1,0 +1,6 @@
+*.i*
+build
+.gradle
+.DS_Store
+out
+*.log

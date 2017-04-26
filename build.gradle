@@ -1,0 +1,26 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath "io.ratpack:ratpack-gradle:1.4.6"
+    classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+  }
+}
+
+apply plugin: "io.ratpack.ratpack-groovy"
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: "idea"
+apply plugin: 'application'
+
+dependencies {
+  compile ratpack.dependency("guice")
+  compile 'org.apache.kafka:kafka-clients:0.10.1.0'
+
+  runtime 'org.slf4j:slf4j-simple:1.7.10'
+  testCompile 'junit:junit:4.11'
+}
+
+repositories {
+  jcenter()
+}
