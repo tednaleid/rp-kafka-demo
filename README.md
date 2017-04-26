@@ -24,6 +24,9 @@ something like:
     echo $VALUE | kafkacat -P -b localhost:9092 -t the-topic
     done;
     
+If you want to send a bunch of things to test out batching, you can do something like:
+
+    seq 100000 | kafkacat -P -b localhost:9092 -t the-topic
     
 Do that and you should see output from the ratpack like:
 
