@@ -71,7 +71,7 @@ class KafkaService implements Service, Action<Execution> {
 
     ConsumerRecords<String, String> pollKafka() {
         println "Polling on ${Thread.currentThread().name}"
-        consumer.poll(1000)
+        consumer.poll(5000)
     }
 
     Promise process(ConsumerRecords<String, String> records) {
